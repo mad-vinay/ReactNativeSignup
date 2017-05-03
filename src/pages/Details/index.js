@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {
   Text,
   View,
+  TouchableHighlight
 } from 'react-native';
 import styles from './style';
 @connect(state => ({
@@ -11,15 +12,31 @@ import styles from './style';
   {
   })
 export default class Details extends Component {
+
+
+	onPress = (id) => {
+        this.props.navigator.push({
+      		id: 'Signup'
+    	});
+    }
+
+
   	render() {
 	    return (
-
-	    	<View style={styles.scrollv}>
-		    	<Text>{this.props.details.firstName}</Text>
-		    	<Text>{this.props.details.lastName}</Text>
-		    	<Text>{this.props.details.email}</Text>
-		    	<Text>{this.props.details.mobno}</Text>
-		    	<Text>{this.props.details.passwd}</Text>
+	    	<View>
+				<View style={styles.header}>
+		        	<Text style={styles.headerText}>Registered Details</Text>
+				</View>
+		    	<View style={styles.popultedDetails}>
+			    	<Text style={styles.details}>Fist Name: {this.props.details.firstName}</Text>
+			    	<Text style={styles.details}>Last Name: {this.props.details.lastName}</Text>
+			    	<Text style={styles.details}>Email id: {this.props.details.email}</Text>
+			    	<Text style={styles.details}>Mobile Number: {this.props.details.mobno}</Text>
+			    	<Text style={styles.details}>Password: {this.props.details.passwd}</Text>
+		    	</View>
+		    	<TouchableHighlight style={styles.backBtn} onPress={() => this.onPress()}>
+		    		<Text style={styles.backBtnText}>back</Text>
+				</TouchableHighlight>
 	    	</View>
 	    );
 	}
