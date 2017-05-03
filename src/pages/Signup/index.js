@@ -61,24 +61,25 @@ export default class Signup extends Component {
 	emptyValidation() {
 	    var emailFlag = "";
 	    var passFlag = "";
-
+	    var nameFlag= "";
+	    
 	    if(this.state.firstName.length==0) {
 	    	this.setState({ firstNameText: "First Name is a required feild" , isValidFistName:false,});
-	      	emailFlag = false;
+	      	nameFlag = false;
 	    }
 	    else {
 	      this.setState({ firstNameText: "", isValidFistName:true, });
-	      emailFlag = true;
+	      nameFlag = true;
 	      
 	    }
 	    if(this.state.email.length==0) {
 	      this.setState({ emailText: "Email is a required feild" , isValidEmail:false,});
-	      passFlag = false;
+	      emailFlag = false;
 	      
 	    }
 	    else {
 	      this.setState({ emailText: "", isValidEmail:true, });
-	      passFlag = true;
+	      emailFlag = true;
 	      
 	    }
 	    if(this.state.passwd.length==0) {
