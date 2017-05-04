@@ -13,13 +13,11 @@ import styles from './style';
   })
 export default class Details extends Component {
 
-
 	onPress = (id) => {
         this.props.navigator.push({
       		id: 'Signup'
     	});
     }
-
 
   	render() {
 	    return (

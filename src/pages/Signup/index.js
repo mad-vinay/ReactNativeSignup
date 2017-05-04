@@ -39,7 +39,7 @@ export default class Signup extends Component {
 	}
 
 	handle = () => {
-		if (this.emptyValidation()) {
+		if (this.signUpValidation()) {
 			var data ={
 				firstName: this.state.firstName,
 				lastName: this.state.lastName,
@@ -47,6 +47,7 @@ export default class Signup extends Component {
 				mobno: this.state.mobno,
 				passwd: this.state.passwd
 			}
+			
 			this.props.saveData(data);
 	        this.props.navigator.push({
           		id: 'Details'
@@ -58,10 +59,12 @@ export default class Signup extends Component {
 	}
 
 
-	emptyValidation() {
+	signUpValidation() {
 	    var emailFlag = "";
 	    var passFlag = "";
 	    var nameFlag= "";
+	    var emailPattern = "";
+	    var passwdPattern = "";
 	    
 	    if(this.state.firstName.length==0) {
 	    	this.setState({ firstNameText: "First Name is a required feild" , isValidFistName:false,});
@@ -78,23 +81,37 @@ export default class Signup extends Component {
 	      
 	    }
 	    else {
-	      this.setState({ emailText: "", isValidEmail:true, });
-	      emailFlag = true;
-	      
-	    }
+			const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+			emailPattern = EMAIL_REGEX.test(this.state.email);
+			if(emailPattern){
+				this.setState({ emailText: "", isValidEmail:true, });
+		        emailFlag = true;
+		    }
+		    else {
+				this.setState({ emailText: "Email is invalid" , isValidEmail:false,});
+				emailFlag = false;
+		    }
+		}
 	    if(this.state.passwd.length==0) {
 	      this.setState({ passwdText: "Password is a required feild" , isValidPasswd:false,});
 	      passFlag = false;
 	      
 	    }
 	    else {
-	      this.setState({ passwdText: "", isValidPasswd:true, });
-	      passFlag = true;
-	      
+	    	const PASSWORD_REGEX = /^(?=.*[0-9])[a-zA-Z0-9!@#$%^&*]{1,16}$/;
+	    	passwdPattern = PASSWORD_REGEX.test(this.state.passwd);
+	    	if(passwdPattern){
+				this.setState({ passwdText: "", isValidPasswd:true, });
+		        passFlag = true;
+		    }
+		    else {
+				this.setState({ passwdText: "password is invalid" , isValidPasswd:false,});
+				passFlag = false;
+		    }
 	    }
-	    return emailFlag && passFlag;
-	}
 
+	    return emailFlag && passFlag && nameFlag;
+	}
 
 
   	render() {
